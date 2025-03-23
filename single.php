@@ -2,10 +2,19 @@
 
 // single byte injection implementation
 
-function generate_random_byte() 
+function generate_random_byte() : string
 {
-    $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return $alphabet[random_int(0, strlen($alphabet) - 1)];
+    $byte = random_bytes(1);
+    $byte = bin2hex($byte);
+    $byte = str_replace($byte[1], "", $byte);
+
+    if (empty($byte)) 
+    {
+        $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $byte = $alphabet[random_int(0, strlen($alphabet) - 1)];
+    }
+
+    return $byte;
 }
 
 function tecznique64_encode(string $input, string &$byte, int &$index) : string
